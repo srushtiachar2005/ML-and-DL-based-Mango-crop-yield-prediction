@@ -5,9 +5,14 @@ from datetime import datetime
 import folium
 from streamlit_folium import st_folium
 import plotly.graph_objects as go
-import pickle
 import os
-from pathlib import Path
+from dotenv import load_dotenv
+from database import DatabaseManager
+
+load_dotenv()
+
+# Initialize database
+db = DatabaseManager()
 
 # Configure Streamlit
 st.set_page_config(
@@ -72,7 +77,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Session state management
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
     st.session_state.user_name = ""
@@ -173,19 +177,17 @@ INDUSTRIES_BY_LOCATION = {
     ]
 }
 
-# ML Model predictions (mock)
 def predict_yield(region, season, rainfall, temperature, humidity, area):
     """Mock ML model for yield prediction"""
-    base_yield = 25  # tons per hectare base
+    base_yield = 25
     
-    # Adjust based on parameters
-    rainfall_factor = (rainfall / 800) * 0.3  # Optimal 800mm
-    temp_factor = (1 - abs(temperature - 28) / 50) * 0.3  # Optimal 28°C
-    humidity_factor = (humidity / 70) * 0.2  # Optimal 70%
+    rainfall_factor = (rainfall / 800) * 0.3
+    temp_factor = (1 - abs(temperature - 28) / 50) * 0.3
+    humidity_factor = (humidity / 70) * 0.2
     seasonal_factor = {"Summer": 0.9, "Monsoon": 1.1, "Winter": 0.8}.get(season, 1.0)
     
     adjusted_yield = base_yield * (1 + rainfall_factor + temp_factor + humidity_factor) * seasonal_factor
-    adjusted_yield = max(10, min(50, adjusted_yield))  # Clamp between 10-50
+    adjusted_yield = max(10, min(50, adjusted_yield))
     
     confidence = min(95, 70 + (rainfall_factor + temp_factor + humidity_factor) * 50)
     
@@ -197,7 +199,7 @@ def predict_yield(region, season, rainfall, temperature, humidity, area):
     }
 
 def login_page():
-    """Login page UI"""
+    """Login page with authentication"""
     st.markdown("""
     <div class="header-section">
         <h1>🌾 Farm2Value</h1>
@@ -205,33 +207,58 @@ def login_page():
     </div>
     """, unsafe_allow_html=True)
     
-    col1, col2 = st.columns([1, 1])
+    tab1, tab2 = st.tabs(["Login", "Register"])
     
-    with col1:
-        st.write("")
-        st.write("")
-        st.markdown("### Welcome to Farm2Value")
-        st.write("Sign in to access yield predictions and waste management solutions.")
-    
-    with col2:
+    with tab1:
         st.markdown("### Sign In")
         
-        name = st.text_input("Full Name", placeholder="Enter your name")
-        email = st.text_input("Email", placeholder="Enter your email")
+        col1, col2 = st.columns([1, 1])
         
-        if st.button("Login", use_container_width=True):
-            if name and email:
-                st.session_state.logged_in = True
-                st.session_state.user_name = name
-                st.session_state.user_email = email
-                st.session_state.current_page = "dashboard"
-                st.rerun()
+        with col1:
+            st.write("Enter your credentials to access your account")
+        
+        with col2:
+            email = st.text_input("Email", key="login_email", placeholder="your@email.com")
+            password = st.text_input("Password", type="password", key="login_password", placeholder="Enter password")
+            
+            if st.button("Login", use_container_width=True):
+                if email and password:
+                    success, result = db.login_user(email, password)
+                    if success:
+                        st.session_state.logged_in = True
+                        st.session_state.user_name = result['name']
+                        st.session_state.user_email = result['email']
+                        st.session_state.current_page = "dashboard"
+                        st.rerun()
+                    else:
+                        st.error(result)
+                else:
+                    st.error("Please enter both email and password")
+    
+    with tab2:
+        st.markdown("### Create New Account")
+        
+        name = st.text_input("Full Name", key="register_name", placeholder="Your name")
+        email = st.text_input("Email", key="register_email", placeholder="your@email.com")
+        password = st.text_input("Password", type="password", key="register_password", placeholder="Create password")
+        confirm_password = st.text_input("Confirm Password", type="password", key="register_confirm", placeholder="Confirm password")
+        
+        if st.button("Register", use_container_width=True):
+            if name and email and password and confirm_password:
+                if password != confirm_password:
+                    st.error("Passwords do not match")
+                else:
+                    success, message = db.register_user(name, email, password)
+                    if success:
+                        st.success(message)
+                        st.info("Registration successful! Please login with your credentials.")
+                    else:
+                        st.error(f"Registration failed: {message}")
             else:
-                st.error("Please enter both name and email")
+                st.error("Please fill in all fields")
 
 def dashboard_page():
     """Main dashboard page"""
-    # Sidebar
     with st.sidebar:
         st.markdown(f"### Welcome, {st.session_state.user_name}!")
         st.divider()
@@ -245,7 +272,6 @@ def dashboard_page():
             st.session_state.user_email = ""
             st.rerun()
     
-    # Main content
     if page == "Dashboard":
         show_dashboard()
     elif page == "Yield Prediction":
@@ -273,7 +299,6 @@ def show_dashboard():
         """, unsafe_allow_html=True)
         
         if st.button("Go to Yield Prediction →", use_container_width=True, key="yield_btn"):
-            st.session_state.current_page = "yield"
             st.rerun()
     
     with col2:
@@ -285,7 +310,6 @@ def show_dashboard():
         """, unsafe_allow_html=True)
         
         if st.button("Go to Waste Recommendations →", use_container_width=True, key="waste_btn"):
-            st.session_state.current_page = "waste"
             st.rerun()
 
 def show_yield_prediction():
@@ -314,6 +338,8 @@ def show_yield_prediction():
     if st.button("Predict Yield", use_container_width=True):
         with st.spinner("Analyzing data..."):
             result = predict_yield(region, season, rainfall, temperature, humidity, area)
+            
+            db.save_yield_prediction(st.session_state.user_email, region, season, rainfall, temperature, humidity, area, result)
             
             st.success("✓ Prediction Complete!")
             
@@ -364,6 +390,9 @@ def show_waste_recommendations():
     if st.button("Get Recommendations", use_container_width=True):
         waste_info = WASTE_DATABASE.get(waste_type)
         
+        estimated_value = f"{waste_info['price_per_kg']} per kg"
+        db.save_waste_record(st.session_state.user_email, waste_type, quantity, location, estimated_value)
+        
         st.success("✓ Recommendations Found!")
         
         st.subheader(f"💡 {waste_type} - Reuse Options")
@@ -398,7 +427,6 @@ def show_waste_recommendations():
             industries = INDUSTRIES_BY_LOCATION.get(location, [])
             
             if industries:
-                # Create map
                 m = folium.Map(location=[industries[0]['lat'], industries[0]['lng']], zoom_start=10)
                 
                 for industry in industries:
