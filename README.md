@@ -28,3 +28,44 @@ Continue building your app on:
 2. Deploy your chats from the v0 interface
 3. Changes are automatically pushed to this repository
 4. Vercel deploys the latest version from this repository
+
+## Weather APIs (integrated)
+
+### 1) Seasonal Forecast (Open‑Meteo)
+- Endpoint: `GET /api/seasonal-weather`
+- Query params:
+  - `latitude` (required)
+  - `longitude` (required)
+  - `start` (YYYY-MM-DD, optional; defaults to 1st of current month)
+  - `end` (YYYY-MM-DD, optional; defaults to end of 3rd month window)
+  - `temperature_2m_max`, `precipitation_sum`, `timezone` (optional)
+- Example:
+  - `/api/seasonal-weather?latitude=12.97&longitude=77.59&start=2025-12-01&end=2026-02-28&temperature_2m_max=true&precipitation_sum=true&timezone=Asia/Kolkata`
+
+UI integration:
+- Component `components/seasonal-weather.tsx` auto-detects browser location and renders a summary on the dashboard (`components/dashboard.tsx`).
+
+### 2) Current Weather (OpenWeather)
+- Endpoint: `GET /api/current-weather`
+- Query params:
+  - `lat` (or `latitude`) required
+  - `lon` (or `longitude`) required
+  - `units` (default `metric`)
+- Example:
+  - `/api/current-weather?lat=12.97&lon=77.59&units=metric`
+- Requires env var:
+  - `OPENWEATHER_API_KEY=your_key`
+
+## Model API (Flask)
+- Train model: `python train_model.py` (creates PKLs in repo root)
+- Run API: `python api.py` (defaults to `http://127.0.0.1:5000`)
+- Next.js backend route `app/api/predict-yield/route.ts` posts to `POST /predict`
+- Configure Next with env var:
+  - `FLASK_API_URL=http://127.0.0.1:5000`
+
+## Local Dev Quickstart
+1. Start Flask (model):
+   - `python api.py`
+2. Start Next.js:
+   - `npm install`
+   - `npm run dev`

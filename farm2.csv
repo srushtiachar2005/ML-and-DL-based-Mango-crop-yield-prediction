@@ -1,0 +1,253 @@
+district,year,season,variety,soil_type,rainfall_mm,temperature_C,humidity_percent,area_hectare,production_tonnes,yield_quintal_per_acre
+Tumkur,2010,Summer,Alphonso,Clayey,769.6,31.79,53.12,1666,7830.12,47.0
+Tumkur,2010,Summer,Alphonso,Alluvial,592.86,32.21,51.13,1543,9512.42,61.65
+Tumkur,2010,Monsoon,Raspuri,Alluvial,847.66,31.94,62.23,1452,7788.37,53.64
+Tumkur,2011,Summer,Totapuri,Clayey,669.96,27.37,69.48,1389,6502.2,46.81
+Tumkur,2011,Monsoon,Totapuri,Alluvial,704.27,31.74,50.93,1846,8936.58,48.41
+Tumkur,2011,Summer,Raspuri,Alluvial,832.66,31.51,57.71,2569,12062.34,46.95
+Tumkur,2012,Monsoon,Totapuri,Alluvial,586.61,30.96,50.69,1405,7421.38,52.82
+Tumkur,2012,Monsoon,Raspuri,Laterite,706.02,31.37,53.7,1902,11763.05,61.85
+Tumkur,2012,Monsoon,Raspuri,Laterite,818.45,31.78,68.44,1655,9335.67,56.41
+Tumkur,2013,Monsoon,Alphonso,Laterite,647.6,30.11,55.43,2276,12912.89,56.74
+Tumkur,2013,Summer,Alphonso,Red Loamy,638.88,28.32,50.31,1720,10396.52,60.44
+Tumkur,2013,Monsoon,Totapuri,Clayey,609.65,32.69,65.8,1578,7334.68,46.48
+Tumkur,2014,Summer,Raspuri,Red Loamy,824.49,33.8,58.99,2256,10438.78,46.27
+Tumkur,2014,Summer,Raspuri,Alluvial,749.78,31.73,55.49,2770,15081.07,54.44
+Tumkur,2014,Summer,Totapuri,Laterite,804.67,32.77,54.72,1597,8763.68,54.88
+Tumkur,2015,Summer,Totapuri,Clayey,583.27,30.51,54.03,2063,11909.33,57.73
+Tumkur,2015,Monsoon,Alphonso,Alluvial,758.65,28.11,62.09,2878,17299.95,60.11
+Tumkur,2015,Monsoon,Alphonso,Alluvial,729.66,32.56,67.61,1881,11504.65,61.16
+Tumkur,2016,Summer,Alphonso,Laterite,686.96,28.75,58.33,2554,13149.75,51.49
+Tumkur,2016,Summer,Alphonso,Clayey,822.05,29.18,62.95,1832,11241.21,61.36
+Tumkur,2016,Summer,Totapuri,Clayey,599.4,31.27,59.7,2448,11602.86,47.4
+Tumkur,2017,Monsoon,Totapuri,Clayey,646.96,31.15,64.06,2336,10815.18,46.3
+Tumkur,2017,Monsoon,Raspuri,Clayey,699.17,29.41,55.7,2304,11597.33,50.34
+Tumkur,2017,Monsoon,Raspuri,Alluvial,565.44,29.23,68.17,2626,15392.07,58.61
+Tumkur,2018,Summer,Raspuri,Alluvial,715.87,31.74,51.62,2407,11975.49,49.75
+Tumkur,2018,Summer,Raspuri,Alluvial,691.09,34.87,57.98,2734,12796.7,46.81
+Tumkur,2018,Summer,Alphonso,Alluvial,702.46,32.57,67.17,1963,11493.62,58.55
+Tumkur,2019,Summer,Raspuri,Clayey,792.85,29.79,51.92,1688,9928.61,58.82
+Tumkur,2019,Monsoon,Totapuri,Laterite,801.31,32.41,64.7,1350,7536.91,55.83
+Tumkur,2019,Monsoon,Totapuri,Clayey,748.0,33.54,61.1,2795,14035.54,50.22
+Tumkur,2020,Summer,Raspuri,Alluvial,717.49,34.06,53.77,2456,12767.32,51.98
+Tumkur,2020,Monsoon,Totapuri,Alluvial,816.13,33.24,62.84,1786,11379.09,63.71
+Tumkur,2020,Monsoon,Raspuri,Alluvial,731.93,27.07,52.03,1298,8368.63,64.47
+Tumkur,2021,Monsoon,Raspuri,Laterite,695.68,30.59,69.89,1360,6169.16,45.36
+Tumkur,2021,Monsoon,Alphonso,Alluvial,773.95,32.2,66.98,1600,8185.79,51.16
+Tumkur,2021,Monsoon,Totapuri,Clayey,740.9,29.0,61.8,1429,7553.97,52.86
+Tumkur,2022,Monsoon,Totapuri,Clayey,788.44,31.02,61.54,2159,13446.98,62.28
+Tumkur,2022,Monsoon,Alphonso,Alluvial,634.23,27.19,62.91,1216,7890.75,64.89
+Tumkur,2022,Monsoon,Alphonso,Laterite,824.46,29.96,50.31,1479,7633.86,51.62
+Tumkur,2023,Monsoon,Alphonso,Clayey,839.09,33.82,55.89,2180,10642.37,48.82
+Tumkur,2023,Summer,Totapuri,Alluvial,661.81,30.16,66.88,2546,14359.75,56.4
+Tumkur,2023,Monsoon,Raspuri,Alluvial,751.34,29.87,55.08,1689,10564.27,62.55
+Kolar,2010,Summer,Alphonso,Red Loamy,860.75,28.16,60.87,2258,14314.73,63.4
+Kolar,2010,Monsoon,Alphonso,Alluvial,923.97,29.07,65.03,2184,12860.59,58.89
+Kolar,2010,Monsoon,Raspuri,Alluvial,665.23,31.32,55.55,2877,16364.27,56.88
+Kolar,2011,Summer,Totapuri,Laterite,748.45,26.93,74.64,1649,11018.07,66.82
+Kolar,2011,Monsoon,Alphonso,Alluvial,661.65,27.82,65.74,2112,13821.96,65.44
+Kolar,2011,Summer,Alphonso,Clayey,675.6,26.31,65.63,1546,10665.89,68.99
+Kolar,2012,Monsoon,Alphonso,Laterite,804.89,27.94,70.9,2330,14835.21,63.67
+Kolar,2012,Monsoon,Totapuri,Laterite,657.61,31.78,71.72,2916,20053.33,68.77
+Kolar,2012,Summer,Raspuri,Laterite,696.93,27.5,65.98,2059,12077.54,58.66
+Kolar,2013,Summer,Alphonso,Red Loamy,936.46,30.43,66.09,2289,15931.62,69.6
+Kolar,2013,Summer,Raspuri,Alluvial,697.59,26.72,61.84,2743,15338.87,55.92
+Kolar,2013,Summer,Raspuri,Laterite,943.85,27.05,55.34,1973,12791.42,64.83
+Kolar,2014,Summer,Alphonso,Laterite,780.16,28.39,67.32,3360,24438.49,72.73
+Kolar,2014,Monsoon,Totapuri,Laterite,837.76,29.02,72.13,2848,19559.86,68.68
+Kolar,2014,Monsoon,Totapuri,Laterite,657.95,29.51,73.8,3187,21844.77,68.54
+Kolar,2015,Summer,Alphonso,Red Loamy,893.36,30.92,67.52,3100,23009.38,74.22
+Kolar,2015,Monsoon,Totapuri,Alluvial,732.19,27.29,62.55,2776,15792.35,56.89
+Kolar,2015,Summer,Totapuri,Red Loamy,846.72,28.31,68.63,2521,17972.05,71.29
+Kolar,2016,Summer,Totapuri,Alluvial,857.87,28.09,73.73,2899,20206.44,69.7
+Kolar,2016,Summer,Alphonso,Red Loamy,814.39,28.54,66.37,2238,16742.5,74.81
+Kolar,2016,Monsoon,Raspuri,Red Loamy,882.92,28.04,73.62,1536,9180.97,59.77
+Kolar,2017,Summer,Alphonso,Clayey,876.36,26.62,73.05,1561,10135.76,64.93
+Kolar,2017,Summer,Raspuri,Red Loamy,918.66,28.34,55.22,2756,19827.45,71.94
+Kolar,2017,Summer,Totapuri,Alluvial,935.02,31.7,66.47,2890,16376.38,56.67
+Kolar,2018,Summer,Totapuri,Alluvial,748.6,30.04,70.05,2674,18885.37,70.63
+Kolar,2018,Summer,Alphonso,Red Loamy,798.33,26.35,65.99,2656,18523.13,69.74
+Kolar,2018,Summer,Totapuri,Clayey,685.12,26.86,70.23,1991,14402.37,72.34
+Kolar,2019,Monsoon,Totapuri,Laterite,860.29,26.44,71.44,2133,12356.92,57.93
+Kolar,2019,Summer,Alphonso,Laterite,945.99,28.25,62.41,1999,11940.77,59.73
+Kolar,2019,Summer,Alphonso,Red Loamy,876.01,28.26,56.67,1944,12161.62,62.56
+Kolar,2020,Summer,Totapuri,Laterite,921.91,26.67,64.85,2152,13579.99,63.1
+Kolar,2020,Monsoon,Raspuri,Alluvial,685.65,26.71,67.98,2524,17319.89,68.62
+Kolar,2020,Monsoon,Raspuri,Red Loamy,762.46,27.71,72.37,2433,15504.71,63.73
+Kolar,2021,Monsoon,Alphonso,Alluvial,816.8,27.94,55.87,2736,20481.5,74.86
+Kolar,2021,Summer,Totapuri,Clayey,940.79,29.14,67.59,3049,18565.32,60.89
+Kolar,2021,Summer,Alphonso,Laterite,825.29,31.41,55.91,2535,18803.12,74.17
+Kolar,2022,Monsoon,Raspuri,Alluvial,682.03,28.01,58.39,2175,13979.59,64.27
+Kolar,2022,Monsoon,Raspuri,Alluvial,673.32,31.85,74.72,2001,11134.83,55.65
+Kolar,2022,Summer,Alphonso,Red Loamy,894.14,30.11,58.25,3081,17415.05,56.52
+Kolar,2023,Monsoon,Raspuri,Clayey,867.72,29.68,63.36,2323,16849.47,72.53
+Kolar,2023,Summer,Alphonso,Red Loamy,657.91,28.26,71.21,1723,12871.8,74.71
+Kolar,2023,Summer,Alphonso,Laterite,764.27,31.82,71.84,2984,16791.04,56.27
+Mandya,2010,Summer,Totapuri,Clayey,854.68,25.34,77.29,2708,18954.47,69.99
+Mandya,2010,Monsoon,Totapuri,Red Loamy,917.03,29.36,75.14,2082,11439.96,54.95
+Mandya,2010,Monsoon,Alphonso,Laterite,850.29,26.65,64.14,2448,15528.65,63.43
+Mandya,2011,Monsoon,Raspuri,Alluvial,853.73,25.13,69.96,2437,15949.28,65.45
+Mandya,2011,Summer,Raspuri,Alluvial,963.28,30.81,61.77,2762,16038.84,58.07
+Mandya,2011,Monsoon,Totapuri,Clayey,884.11,29.71,72.79,2074,11253.38,54.26
+Mandya,2012,Monsoon,Raspuri,Laterite,921.62,28.82,71.1,2434,16571.44,68.08
+Mandya,2012,Monsoon,Alphonso,Laterite,890.18,30.46,65.96,3129,21041.67,67.25
+Mandya,2012,Summer,Alphonso,Alluvial,891.87,30.05,75.38,3875,22933.3,59.18
+Mandya,2013,Monsoon,Raspuri,Red Loamy,869.48,26.25,71.59,3994,20576.0,51.52
+Mandya,2013,Summer,Totapuri,Clayey,916.95,27.4,73.95,2899,15549.54,53.64
+Mandya,2013,Monsoon,Alphonso,Clayey,974.86,28.09,79.46,2060,11092.23,53.85
+Mandya,2014,Summer,Alphonso,Red Loamy,869.02,27.09,60.64,2837,14869.49,52.41
+Mandya,2014,Summer,Raspuri,Laterite,872.85,28.02,73.81,3096,16051.46,51.85
+Mandya,2014,Summer,Alphonso,Laterite,816.35,30.24,78.42,3596,17998.66,50.05
+Mandya,2015,Monsoon,Alphonso,Alluvial,949.65,26.11,64.19,2638,18065.24,68.48
+Mandya,2015,Monsoon,Raspuri,Alluvial,873.78,27.78,74.95,2525,13371.08,52.95
+Mandya,2015,Summer,Totapuri,Clayey,979.04,28.07,70.64,3297,19435.24,58.95
+Mandya,2016,Summer,Totapuri,Clayey,820.97,29.42,63.65,3062,17282.41,56.44
+Mandya,2016,Summer,Raspuri,Laterite,907.07,26.4,66.86,2024,12869.01,63.58
+Mandya,2016,Summer,Alphonso,Red Loamy,895.92,28.51,74.74,2622,17019.08,64.91
+Mandya,2017,Summer,Totapuri,Laterite,856.76,27.18,72.92,3761,20643.02,54.89
+Mandya,2017,Summer,Alphonso,Laterite,921.15,26.42,62.04,3733,21392.75,57.31
+Mandya,2017,Monsoon,Raspuri,Clayey,817.58,29.84,61.11,3160,16307.08,51.6
+Mandya,2018,Summer,Totapuri,Alluvial,939.39,30.98,77.93,2467,17118.37,69.39
+Mandya,2018,Monsoon,Totapuri,Laterite,995.01,27.94,74.46,2573,17647.57,68.59
+Mandya,2018,Summer,Totapuri,Alluvial,895.32,30.03,64.1,3433,19387.38,56.47
+Mandya,2019,Summer,Alphonso,Alluvial,848.48,25.69,72.21,2319,11999.85,51.75
+Mandya,2019,Monsoon,Totapuri,Clayey,896.23,28.2,61.04,2689,15888.05,59.09
+Mandya,2019,Summer,Totapuri,Laterite,997.99,26.93,76.2,2320,12244.15,52.78
+Mandya,2020,Summer,Alphonso,Red Loamy,919.13,27.83,68.24,3629,18919.42,52.13
+Mandya,2020,Summer,Raspuri,Alluvial,993.01,25.75,74.62,3160,17095.61,54.1
+Mandya,2020,Summer,Totapuri,Red Loamy,948.22,28.45,76.84,3863,25711.67,66.56
+Mandya,2021,Summer,Raspuri,Alluvial,832.73,25.99,76.29,3402,21322.09,62.68
+Mandya,2021,Monsoon,Alphonso,Red Loamy,917.66,29.1,69.04,2615,15046.42,57.54
+Mandya,2021,Summer,Alphonso,Laterite,907.96,27.63,71.55,2144,14577.38,67.99
+Mandya,2022,Summer,Raspuri,Laterite,813.32,26.37,70.86,2197,15114.62,68.8
+Mandya,2022,Summer,Totapuri,Alluvial,938.74,26.0,77.57,3312,20093.65,60.67
+Mandya,2022,Summer,Totapuri,Alluvial,999.54,29.51,74.14,3434,22279.42,64.88
+Mandya,2023,Monsoon,Raspuri,Laterite,952.49,30.26,66.84,2805,17034.66,60.73
+Mandya,2023,Summer,Alphonso,Alluvial,920.79,28.01,70.8,3180,17358.04,54.59
+Mandya,2023,Monsoon,Alphonso,Laterite,802.44,28.59,71.31,2793,15371.55,55.04
+Hassan,2010,Summer,Totapuri,Laterite,981.69,28.5,68.02,2814,15690.47,55.76
+Hassan,2010,Summer,Raspuri,Red Loamy,827.82,25.6,65.12,3639,24542.32,67.44
+Hassan,2010,Monsoon,Alphonso,Alluvial,804.6,28.91,75.42,3822,23747.73,62.13
+Hassan,2011,Monsoon,Totapuri,Red Loamy,820.85,30.04,78.21,3792,19818.8,52.26
+Hassan,2011,Summer,Raspuri,Laterite,837.26,30.02,66.64,3973,23987.69,60.38
+Hassan,2011,Monsoon,Totapuri,Red Loamy,875.86,29.47,64.11,2312,11581.42,50.09
+Hassan,2012,Summer,Totapuri,Clayey,882.9,30.18,78.46,3926,22354.28,56.94
+Hassan,2012,Monsoon,Totapuri,Red Loamy,917.41,25.2,78.25,3205,17155.64,53.53
+Hassan,2012,Summer,Raspuri,Red Loamy,982.97,27.17,71.61,2661,14476.36,54.4
+Hassan,2013,Monsoon,Alphonso,Red Loamy,835.61,30.77,62.97,3653,24552.78,67.21
+Hassan,2013,Summer,Alphonso,Alluvial,900.44,28.57,61.34,2214,12959.82,58.54
+Hassan,2013,Monsoon,Totapuri,Laterite,841.03,26.14,60.73,2285,15248.1,66.73
+Hassan,2014,Summer,Raspuri,Red Loamy,955.11,27.72,70.49,2987,17809.02,59.62
+Hassan,2014,Monsoon,Raspuri,Clayey,831.05,26.09,77.24,3894,25336.28,65.06
+Hassan,2014,Monsoon,Raspuri,Clayey,928.8,27.45,60.51,3499,23371.84,66.8
+Hassan,2015,Summer,Alphonso,Alluvial,805.42,26.33,64.62,2442,14678.9,60.11
+Hassan,2015,Monsoon,Raspuri,Red Loamy,959.98,26.07,73.05,3006,19363.53,64.42
+Hassan,2015,Summer,Raspuri,Alluvial,971.14,29.98,67.94,2164,11430.6,52.82
+Hassan,2016,Monsoon,Totapuri,Clayey,979.27,25.08,61.71,2150,14396.95,66.96
+Hassan,2016,Monsoon,Alphonso,Clayey,916.61,27.53,77.85,2814,17586.16,62.5
+Hassan,2016,Summer,Raspuri,Clayey,875.94,28.54,65.36,2260,12860.27,56.9
+Hassan,2017,Monsoon,Raspuri,Red Loamy,887.23,26.77,78.97,2853,18714.3,65.6
+Hassan,2017,Summer,Raspuri,Laterite,897.49,30.37,76.0,2720,16237.19,59.7
+Hassan,2017,Summer,Raspuri,Red Loamy,908.33,28.8,65.16,3781,23782.9,62.9
+Hassan,2018,Monsoon,Raspuri,Laterite,980.11,29.15,73.66,2837,19372.73,68.29
+Hassan,2018,Summer,Raspuri,Alluvial,899.62,25.4,68.1,2997,19958.47,66.59
+Hassan,2018,Summer,Alphonso,Laterite,828.0,26.58,65.33,2730,16911.88,61.95
+Hassan,2019,Monsoon,Alphonso,Red Loamy,898.85,28.44,76.76,2980,17183.51,57.66
+Hassan,2019,Monsoon,Raspuri,Alluvial,870.77,30.75,63.69,2692,16707.37,62.06
+Hassan,2019,Monsoon,Alphonso,Red Loamy,967.42,27.62,78.31,2186,12229.02,55.94
+Hassan,2020,Summer,Raspuri,Laterite,879.33,30.72,62.7,3335,18108.65,54.3
+Hassan,2020,Monsoon,Totapuri,Alluvial,832.4,30.05,76.93,3530,21863.71,61.94
+Hassan,2020,Monsoon,Alphonso,Laterite,894.85,27.07,67.03,3664,21950.96,59.91
+Hassan,2021,Summer,Raspuri,Red Loamy,849.28,29.91,75.99,2171,15056.75,69.35
+Hassan,2021,Monsoon,Raspuri,Alluvial,872.19,25.55,78.35,2956,19450.56,65.8
+Hassan,2021,Summer,Totapuri,Red Loamy,837.03,28.25,77.46,3799,23849.74,62.78
+Hassan,2022,Summer,Totapuri,Red Loamy,938.46,30.1,64.99,3112,19584.84,62.93
+Hassan,2022,Summer,Raspuri,Red Loamy,988.81,25.24,74.11,2710,18966.5,69.99
+Hassan,2022,Monsoon,Alphonso,Laterite,983.1,25.2,73.95,2136,11502.78,53.85
+Hassan,2023,Monsoon,Raspuri,Clayey,988.85,27.85,77.24,2934,17340.78,59.1
+Hassan,2023,Summer,Raspuri,Clayey,807.4,28.58,64.6,2187,13039.16,59.62
+Hassan,2023,Summer,Alphonso,Clayey,867.97,29.35,61.31,3550,23458.24,66.08
+Chikkaballapur,2010,Monsoon,Alphonso,Laterite,745.63,29.76,72.72,2949,21390.07,72.53
+Chikkaballapur,2010,Monsoon,Totapuri,Clayey,911.03,26.13,72.49,2664,16697.76,62.68
+Chikkaballapur,2010,Monsoon,Totapuri,Clayey,949.38,28.1,70.34,1976,11016.58,55.75
+Chikkaballapur,2011,Monsoon,Alphonso,Alluvial,912.1,31.9,70.37,2420,14938.03,61.73
+Chikkaballapur,2011,Monsoon,Alphonso,Red Loamy,721.63,26.66,62.09,3193,23007.62,72.06
+Chikkaballapur,2011,Monsoon,Raspuri,Red Loamy,662.63,26.11,74.75,2084,11918.26,57.19
+Chikkaballapur,2012,Summer,Totapuri,Laterite,889.4,27.55,66.77,2306,16737.49,72.58
+Chikkaballapur,2012,Monsoon,Totapuri,Laterite,834.02,27.0,74.82,3094,19501.98,63.03
+Chikkaballapur,2012,Summer,Totapuri,Laterite,832.32,29.08,59.61,1725,10812.61,62.68
+Chikkaballapur,2013,Summer,Alphonso,Laterite,883.88,28.1,56.16,2570,15246.91,59.33
+Chikkaballapur,2013,Summer,Totapuri,Alluvial,948.47,27.04,62.92,2189,14189.91,64.82
+Chikkaballapur,2013,Summer,Totapuri,Alluvial,789.01,29.74,69.96,2612,17463.52,66.86
+Chikkaballapur,2014,Monsoon,Alphonso,Laterite,787.23,28.35,60.46,3064,22298.25,72.77
+Chikkaballapur,2014,Summer,Raspuri,Alluvial,660.63,27.97,73.63,2918,16556.65,56.74
+Chikkaballapur,2014,Monsoon,Totapuri,Laterite,727.93,30.34,64.92,1953,14499.55,74.24
+Chikkaballapur,2015,Monsoon,Alphonso,Alluvial,672.84,31.11,64.9,1723,11254.91,65.32
+Chikkaballapur,2015,Summer,Raspuri,Clayey,754.34,30.07,66.31,3272,22798.71,69.68
+Chikkaballapur,2015,Monsoon,Totapuri,Alluvial,847.54,31.1,72.35,3204,19762.33,61.68
+Chikkaballapur,2016,Summer,Alphonso,Red Loamy,854.04,29.71,70.05,1506,10938.49,72.63
+Chikkaballapur,2016,Summer,Raspuri,Red Loamy,658.77,30.95,57.58,1862,11092.4,59.57
+Chikkaballapur,2016,Summer,Totapuri,Laterite,895.39,30.99,65.15,1794,10559.96,58.86
+Chikkaballapur,2017,Summer,Raspuri,Clayey,944.36,29.79,60.2,2199,12134.4,55.18
+Chikkaballapur,2017,Summer,Totapuri,Alluvial,682.09,30.57,65.83,2747,19724.13,71.8
+Chikkaballapur,2017,Monsoon,Totapuri,Laterite,876.11,30.73,58.48,1983,11175.54,56.36
+Chikkaballapur,2018,Summer,Alphonso,Alluvial,670.21,29.49,61.92,1973,11146.24,56.49
+Chikkaballapur,2018,Monsoon,Raspuri,Laterite,942.05,31.81,69.99,2750,18394.18,66.89
+Chikkaballapur,2018,Monsoon,Totapuri,Red Loamy,656.64,27.94,64.77,2446,14688.27,60.05
+Chikkaballapur,2019,Summer,Raspuri,Laterite,732.09,31.98,63.52,1896,13667.16,72.08
+Chikkaballapur,2019,Summer,Totapuri,Red Loamy,858.1,27.32,56.65,2473,14739.35,59.6
+Chikkaballapur,2019,Summer,Totapuri,Clayey,935.26,26.91,63.65,1520,11124.95,73.19
+Chikkaballapur,2020,Summer,Totapuri,Alluvial,769.28,27.65,74.68,2780,17073.33,61.41
+Chikkaballapur,2020,Monsoon,Totapuri,Laterite,713.93,26.19,68.03,3047,20187.9,66.26
+Chikkaballapur,2020,Monsoon,Totapuri,Alluvial,697.77,27.22,56.82,2019,14217.48,70.42
+Chikkaballapur,2021,Monsoon,Raspuri,Alluvial,655.36,30.78,60.88,3059,22458.25,73.42
+Chikkaballapur,2021,Summer,Raspuri,Clayey,794.46,26.7,57.5,2759,16540.43,59.95
+Chikkaballapur,2021,Summer,Raspuri,Alluvial,797.48,26.39,66.64,1616,10795.73,66.81
+Chikkaballapur,2022,Monsoon,Totapuri,Alluvial,786.57,26.07,56.45,2843,17885.57,62.91
+Chikkaballapur,2022,Summer,Totapuri,Laterite,737.5,30.17,72.2,1601,11712.34,73.16
+Chikkaballapur,2022,Summer,Raspuri,Clayey,681.48,27.45,74.73,3195,17689.87,55.37
+Chikkaballapur,2023,Monsoon,Raspuri,Alluvial,860.74,29.36,55.2,3388,22142.01,65.35
+Chikkaballapur,2023,Summer,Alphonso,Red Loamy,674.75,30.95,62.16,2626,15140.02,57.65
+Chikkaballapur,2023,Summer,Raspuri,Laterite,857.96,30.93,55.82,1927,11001.5,57.09
+Ramanagara,2010,Summer,Alphonso,Clayey,818.87,31.76,62.33,1422,7938.45,55.83
+Ramanagara,2010,Monsoon,Raspuri,Alluvial,790.52,29.72,66.3,1206,7020.9,58.22
+Ramanagara,2010,Monsoon,Raspuri,Laterite,785.15,30.85,50.82,2923,17430.37,59.63
+Ramanagara,2011,Summer,Raspuri,Laterite,727.98,32.2,59.59,2466,12178.16,49.38
+Ramanagara,2011,Summer,Raspuri,Alluvial,773.28,33.97,58.67,1487,8173.13,54.96
+Ramanagara,2011,Monsoon,Raspuri,Laterite,745.98,29.66,60.85,2282,13237.09,58.01
+Ramanagara,2012,Monsoon,Totapuri,Clayey,616.17,30.35,54.07,2102,11403.87,54.25
+Ramanagara,2012,Monsoon,Alphonso,Clayey,674.77,33.77,62.58,1931,10122.45,52.42
+Ramanagara,2012,Monsoon,Raspuri,Red Loamy,704.2,31.7,50.59,2065,11302.44,54.73
+Ramanagara,2013,Monsoon,Totapuri,Laterite,787.89,32.24,69.84,1385,8759.75,63.25
+Ramanagara,2013,Monsoon,Totapuri,Red Loamy,689.74,33.69,54.72,1993,11821.78,59.32
+Ramanagara,2013,Monsoon,Raspuri,Clayey,739.76,29.98,60.25,1492,9263.49,62.09
+Ramanagara,2014,Summer,Alphonso,Laterite,579.22,30.24,61.86,1430,7462.41,52.18
+Ramanagara,2014,Monsoon,Totapuri,Laterite,745.64,29.5,57.98,2386,13870.95,58.13
+Ramanagara,2014,Summer,Alphonso,Alluvial,729.61,30.17,54.74,1486,7388.54,49.72
+Ramanagara,2015,Summer,Raspuri,Laterite,649.27,30.59,63.39,2584,13854.83,53.62
+Ramanagara,2015,Monsoon,Totapuri,Alluvial,762.03,28.34,53.35,2344,13386.76,57.11
+Ramanagara,2015,Summer,Alphonso,Alluvial,692.39,33.75,66.11,1355,8439.53,62.28
+Ramanagara,2016,Monsoon,Totapuri,Red Loamy,560.26,34.89,52.46,2516,16035.0,63.73
+Ramanagara,2016,Summer,Alphonso,Clayey,617.41,28.44,51.77,2384,13146.5,55.14
+Ramanagara,2016,Monsoon,Raspuri,Alluvial,845.99,34.72,50.1,1416,8181.99,57.78
+Ramanagara,2017,Summer,Totapuri,Clayey,626.27,31.17,56.85,2517,12029.5,47.79
+Ramanagara,2017,Monsoon,Raspuri,Red Loamy,593.06,34.52,64.66,2231,14367.25,64.4
+Ramanagara,2017,Summer,Totapuri,Alluvial,596.85,28.88,69.27,2398,14112.83,58.85
+Ramanagara,2018,Summer,Totapuri,Laterite,662.29,27.14,54.88,2761,17222.59,62.38
+Ramanagara,2018,Monsoon,Alphonso,Alluvial,583.93,33.36,68.37,2224,10967.32,49.31
+Ramanagara,2018,Monsoon,Raspuri,Red Loamy,750.09,31.62,56.97,2209,12613.19,57.1
+Ramanagara,2019,Summer,Alphonso,Red Loamy,672.07,33.97,65.65,1788,9078.34,50.77
+Ramanagara,2019,Summer,Raspuri,Red Loamy,779.56,34.41,58.76,2705,16296.46,60.25
+Ramanagara,2019,Summer,Totapuri,Clayey,810.67,30.01,55.94,1654,7462.05,45.12
+Ramanagara,2020,Summer,Alphonso,Alluvial,732.95,31.51,57.61,1804,9736.89,53.97
+Ramanagara,2020,Summer,Alphonso,Clayey,618.18,27.59,62.07,2845,16458.76,57.85
+Ramanagara,2020,Monsoon,Raspuri,Red Loamy,663.94,33.91,60.38,1653,10460.97,63.28
+Ramanagara,2021,Summer,Raspuri,Red Loamy,664.06,30.19,61.6,2523,13758.91,54.53
+Ramanagara,2021,Summer,Totapuri,Laterite,774.06,32.72,60.42,1220,5967.7,48.92
+Ramanagara,2021,Summer,Totapuri,Red Loamy,819.41,28.95,68.54,1523,9699.79,63.69
+Ramanagara,2022,Monsoon,Totapuri,Laterite,599.9,31.94,60.46,1693,8658.98,51.15
+Ramanagara,2022,Summer,Totapuri,Alluvial,643.39,31.88,64.32,1788,9524.85,53.27
+Ramanagara,2022,Summer,Raspuri,Clayey,586.97,33.88,66.0,1358,8036.77,59.18
+Ramanagara,2023,Monsoon,Alphonso,Laterite,605.57,34.34,58.49,2998,18382.23,61.31
+Ramanagara,2023,Monsoon,Alphonso,Laterite,583.69,27.02,62.76,2500,15671.03,62.68
+Ramanagara,2023,Summer,Raspuri,Red Loamy,743.98,28.4,57.22,1881,11850.39,63.0

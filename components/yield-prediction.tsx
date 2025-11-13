@@ -2,13 +2,28 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowLeft, Loader2 } from "lucide-react"
+
+// Simple coordinates map (Karnataka examples)
+const DISTRICT_COORDS: Record<string, { lat: number; lon: number }> = {
+  Tumkur: { lat: 13.34, lon: 77.1 },
+  Kolar: { lat: 13.14, lon: 78.13 },
+  Mandya: { lat: 12.52, lon: 76.9 },
+  Hassan: { lat: 13.0, lon: 76.1 },
+  Chikkaballapur: { lat: 13.43, lon: 77.73 },
+  Ramanagara: { lat: 12.72, lon: 77.28 },
+  // Non-dataset examples remain available
+  Bangalore: { lat: 12.97, lon: 77.59 },
+  Mysore: { lat: 12.2958, lon: 76.6394 },
+}
+
+type WeatherMode = "auto" | "manual"
 
 interface YieldPredictionProps {
   onBack: () => void
@@ -22,17 +37,22 @@ interface PredictionResult {
 
 export default function YieldPrediction({ onBack }: YieldPredictionProps) {
   const [formData, setFormData] = useState({
-    region: "",
+    district: "",
     season: "",
+    variety: "",
+    soil_type: "",
+    rainfall_mm: "",
+    temperature_C: "",
+    humidity_percent: "",
     area: "",
-    rainfall: "",
-    temperature: "",
-    humidity: "",
   })
 
+  const [weatherMode, setWeatherMode] = useState<WeatherMode>("auto")
   const [result, setResult] = useState<PredictionResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [autoFilled, setAutoFilled] = useState(false)
+  const [loadingWeather, setLoadingWeather] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -43,18 +63,76 @@ export default function YieldPrediction({ onBack }: YieldPredictionProps) {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
+  // Auto-fill weather-derived fields when in Auto mode and district changes
+  useEffect(() => {
+    async function autofillWeather() {
+      const coords = DISTRICT_COORDS[formData.district as keyof typeof DISTRICT_COORDS]
+      if (!coords) return
+      setLoadingWeather(true)
+      setAutoFilled(false)
+      try {
+        const qs = new URLSearchParams({ latitude: String(coords.lat), longitude: String(coords.lon) })
+        const [seasonalRes, currentRes] = await Promise.all([
+          fetch(`/api/seasonal-weather?${qs.toString()}`),
+          fetch(`/api/current-weather?lat=${coords.lat}&lon=${coords.lon}&units=metric`),
+        ])
+        const seasonal = seasonalRes.ok ? await seasonalRes.json() : null
+        const current = currentRes.ok ? await currentRes.json() : null
+
+        let seasonalTemps: number[] | undefined
+        let seasonalPrecip: number[] | undefined
+        if (seasonal?.monthly || seasonal?.seasonal) {
+          const monthly = seasonal.monthly || seasonal.seasonal
+          seasonalTemps = monthly?.temperature_2m_max || monthly?.temperature_2m_mean || monthly?.t2m
+          seasonalPrecip = monthly?.precipitation_sum || monthly?.tp
+        }
+        const avgTemp = seasonalTemps && seasonalTemps.length
+          ? seasonalTemps.reduce((a: number, b: number) => a + b, 0) / seasonalTemps.length
+          : undefined
+        const totalPrecip = seasonalPrecip && seasonalPrecip.length
+          ? seasonalPrecip.reduce((a: number, b: number) => a + b, 0)
+          : undefined
+
+        const nowTemp = typeof current?.main?.temp === "number" ? current.main.temp : undefined
+        const nowHumidity = typeof current?.main?.humidity === "number" ? current.main.humidity : undefined
+
+        const rainfallVal = totalPrecip ?? 800
+        const tempVal = nowTemp ?? avgTemp ?? 28
+        const humidVal = nowHumidity ?? 70
+
+        setFormData((prev) => ({
+          ...prev,
+          rainfall_mm: String(Number(rainfallVal.toFixed ? rainfallVal.toFixed(1) : rainfallVal)),
+          temperature_C: String(Number(tempVal.toFixed ? tempVal.toFixed(1) : tempVal)),
+          humidity_percent: String(Number(humidVal.toFixed ? humidVal.toFixed(1) : humidVal)),
+        }))
+        setAutoFilled(true)
+      } catch (e) {
+        // keep fields unchanged on failure
+      } finally {
+        setLoadingWeather(false)
+      }
+    }
+
+    if (weatherMode === "auto" && formData.district) {
+      autofillWeather()
+    }
+  }, [formData.district, formData.season, weatherMode])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
     setResult(null)
 
     if (
-      !formData.region ||
+      !formData.district ||
       !formData.season ||
-      !formData.area ||
-      !formData.rainfall ||
-      !formData.temperature ||
-      !formData.humidity
+      !formData.variety ||
+      !formData.soil_type ||
+      !formData.rainfall_mm ||
+      !formData.temperature_C ||
+      !formData.humidity_percent ||
+      !formData.area
     ) {
       setError("Please fill in all fields")
       return
@@ -66,12 +144,14 @@ export default function YieldPrediction({ onBack }: YieldPredictionProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          region: formData.region,
+          district: formData.district,
           season: formData.season,
+          variety: formData.variety,
+          soil_type: formData.soil_type,
+          rainfall_mm: Number.parseFloat(formData.rainfall_mm),
+          temperature_C: Number.parseFloat(formData.temperature_C),
+          humidity_percent: Number.parseFloat(formData.humidity_percent),
           area: Number.parseFloat(formData.area),
-          rainfall: Number.parseFloat(formData.rainfall),
-          temperature: Number.parseFloat(formData.temperature),
-          humidity: Number.parseFloat(formData.humidity),
         }),
       })
 
@@ -99,26 +179,55 @@ export default function YieldPrediction({ onBack }: YieldPredictionProps) {
 
       {/* Title */}
       <h2 className="text-3xl font-bold text-foreground mb-2">Mango Yield Prediction</h2>
-      <p className="text-muted-foreground mb-8">Enter your farming parameters to get an AI-powered yield prediction</p>
+      <p className="text-muted-foreground mb-1">Enter farm details based on your dataset to predict yield</p>
+
+      {/* Weather Input Mode */}
+      <div className="mb-4">
+        <Label htmlFor="weather_mode">Weather Input</Label>
+        <div className="mt-2 flex items-center gap-3">
+          <input
+            id="weather_mode"
+            type="checkbox"
+            checked={weatherMode === "auto"}
+            onChange={(e) => setWeatherMode(e.target.checked ? "auto" : "manual")}
+          />
+          <span className="text-sm">Auto (uncheck to enter manually)</span>
+        </div>
+        {weatherMode === "auto" && (
+          <p className="text-xs text-muted-foreground mt-2">
+            Rainfall, Temperature, and Humidity will be auto-filled from the selected district’s weather.
+          </p>
+        )}
+      </div>
+
+      {weatherMode === "auto" && loadingWeather && (
+        <p className="text-xs text-muted-foreground mb-6">Fetching weather for the selected district…</p>
+      )}
+      {weatherMode === "auto" && !loadingWeather && autoFilled && (
+        <p className="text-xs text-green-700 mb-6">Weather fields auto-filled from seasonal/current data</p>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Form */}
         <div className="lg:col-span-2">
           <Card className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Region */}
+              {/* District */}
               <div className="space-y-2">
-                <Label htmlFor="region">Region</Label>
-                <Select value={formData.region} onValueChange={(value) => handleSelectChange("region", value)}>
-                  <SelectTrigger id="region">
-                    <SelectValue placeholder="Select region" />
+                <Label htmlFor="district">District</Label>
+                <Select value={formData.district} onValueChange={(value) => handleSelectChange("district", value)}>
+                  <SelectTrigger id="district">
+                    <SelectValue placeholder="Select district" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="maharashtra">Maharashtra</SelectItem>
-                    <SelectItem value="karnataka">Karnataka</SelectItem>
-                    <SelectItem value="tamil_nadu">Tamil Nadu</SelectItem>
-                    <SelectItem value="andhra_pradesh">Andhra Pradesh</SelectItem>
-                    <SelectItem value="telangana">Telangana</SelectItem>
+                    <SelectItem value="Tumkur">Tumkur</SelectItem>
+                    <SelectItem value="Kolar">Kolar</SelectItem>
+                    <SelectItem value="Mandya">Mandya</SelectItem>
+                    <SelectItem value="Hassan">Hassan</SelectItem>
+                    <SelectItem value="Chikkaballapur">Chikkaballapur</SelectItem>
+                    <SelectItem value="Ramanagara">Ramanagara</SelectItem>
+                    <SelectItem value="Bangalore">Bangalore</SelectItem>
+                    <SelectItem value="Mysore">Mysore</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -131,14 +240,96 @@ export default function YieldPrediction({ onBack }: YieldPredictionProps) {
                     <SelectValue placeholder="Select season" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="summer">Summer</SelectItem>
-                    <SelectItem value="monsoon">Monsoon</SelectItem>
-                    <SelectItem value="winter">Winter</SelectItem>
+                    <SelectItem value="Summer">Summer</SelectItem>
+                    <SelectItem value="Monsoon">Monsoon</SelectItem>
+                    <SelectItem value="Winter">Winter</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Area */}
+              {/* Variety */}
+              <div className="space-y-2">
+                <Label htmlFor="variety">Variety</Label>
+                <Select value={formData.variety} onValueChange={(value) => handleSelectChange("variety", value)}>
+                  <SelectTrigger id="variety">
+                    <SelectValue placeholder="Select variety" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Alphonso">Alphonso</SelectItem>
+                    <SelectItem value="Kesar">Kesar</SelectItem>
+                    <SelectItem value="Dasheri">Dasheri</SelectItem>
+                    <SelectItem value="Banganapalli">Banganapalli</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Soil Type */}
+              <div className="space-y-2">
+                <Label htmlFor="soil_type">Soil Type</Label>
+                <Select value={formData.soil_type} onValueChange={(value) => handleSelectChange("soil_type", value)}>
+                  <SelectTrigger id="soil_type">
+                    <SelectValue placeholder="Select soil type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Loamy">Loamy</SelectItem>
+                    <SelectItem value="Sandy">Sandy</SelectItem>
+                    <SelectItem value="Clay">Clay</SelectItem>
+                    <SelectItem value="Sandy Loam">Sandy Loam</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Rainfall (mm) */}
+              <div className="space-y-2">
+                <Label htmlFor="rainfall_mm">Rainfall (mm)</Label>
+                <Input
+                  id="rainfall_mm"
+                  name="rainfall_mm"
+                  type="number"
+                  step="0.1"
+                  placeholder="Enter rainfall"
+                  value={formData.rainfall_mm}
+                  onChange={handleInputChange}
+                  className="h-11"
+                  disabled={weatherMode === "auto"}
+                />
+              </div>
+
+              {/* Temperature (°C) */}
+              <div className="space-y-2">
+                <Label htmlFor="temperature_C">Average Temperature (°C)</Label>
+                <Input
+                  id="temperature_C"
+                  name="temperature_C"
+                  type="number"
+                  step="0.1"
+                  placeholder="Enter temperature"
+                  value={formData.temperature_C}
+                  onChange={handleInputChange}
+                  className="h-11"
+                  disabled={weatherMode === "auto"}
+                />
+              </div>
+
+              {/* Humidity (%) */}
+              <div className="space-y-2">
+                <Label htmlFor="humidity_percent">Humidity (%)</Label>
+                <Input
+                  id="humidity_percent"
+                  name="humidity_percent"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  max="100"
+                  placeholder="Enter humidity"
+                  value={formData.humidity_percent}
+                  onChange={handleInputChange}
+                  className="h-11"
+                  disabled={weatherMode === "auto"}
+                />
+              </div>
+
+              {/* Area (hectares) */}
               <div className="space-y-2">
                 <Label htmlFor="area">Farm Area (hectares)</Label>
                 <Input
@@ -146,55 +337,9 @@ export default function YieldPrediction({ onBack }: YieldPredictionProps) {
                   name="area"
                   type="number"
                   step="0.1"
-                  placeholder="Enter farm area"
-                  value={formData.area}
-                  onChange={handleInputChange}
-                  className="h-11"
-                />
-              </div>
-
-              {/* Rainfall */}
-              <div className="space-y-2">
-                <Label htmlFor="rainfall">Rainfall (mm)</Label>
-                <Input
-                  id="rainfall"
-                  name="rainfall"
-                  type="number"
-                  step="0.1"
-                  placeholder="Enter annual rainfall"
-                  value={formData.rainfall}
-                  onChange={handleInputChange}
-                  className="h-11"
-                />
-              </div>
-
-              {/* Temperature */}
-              <div className="space-y-2">
-                <Label htmlFor="temperature">Average Temperature (°C)</Label>
-                <Input
-                  id="temperature"
-                  name="temperature"
-                  type="number"
-                  step="0.1"
-                  placeholder="Enter temperature"
-                  value={formData.temperature}
-                  onChange={handleInputChange}
-                  className="h-11"
-                />
-              </div>
-
-              {/* Humidity */}
-              <div className="space-y-2">
-                <Label htmlFor="humidity">Humidity (%)</Label>
-                <Input
-                  id="humidity"
-                  name="humidity"
-                  type="number"
-                  step="0.1"
                   min="0"
-                  max="100"
-                  placeholder="Enter humidity"
-                  value={formData.humidity}
+                  placeholder="Enter area in hectares"
+                  value={formData.area}
                   onChange={handleInputChange}
                   className="h-11"
                 />
@@ -235,7 +380,7 @@ export default function YieldPrediction({ onBack }: YieldPredictionProps) {
                 <div className="bg-background rounded-lg p-4 border border-border">
                   <p className="text-sm text-muted-foreground mb-1">Estimated Yield</p>
                   <p className="text-3xl font-bold text-primary">
-                    {result.yield.toFixed(1)} <span className="text-lg text-muted-foreground">tonnes/ha</span>
+                    {result.yield.toFixed(1)} <span className="text-lg text-muted-foreground">units</span>
                   </p>
                 </div>
 

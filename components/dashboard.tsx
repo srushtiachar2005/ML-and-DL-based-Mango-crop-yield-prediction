@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import YieldPrediction from "@/components/yield-prediction"
 import WasteRecommendation from "@/components/waste-recommendation"
+import SeasonalWeather from "@/components/seasonal-weather"
 
 interface DashboardProps {
   user: { name: string; email: string }
@@ -47,6 +48,11 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
               <p className="text-lg text-muted-foreground">
                 Choose a feature to get started with AI-powered agricultural insights
               </p>
+            </div>
+
+            {/* Weather Widget */}
+            <div className="mb-8">
+              <SeasonalWeather />
             </div>
 
             {/* Feature Cards */}

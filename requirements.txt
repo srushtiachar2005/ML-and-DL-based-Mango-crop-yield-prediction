@@ -6,3 +6,9 @@ streamlit-folium==0.18.0
 plotly==5.18.0
 mysql-connector-python==8.2.0
 python-dotenv==1.0.0
+scikit-learn
+matplotlib
+joblib
+Flask
+Flask-Cors
+requests
