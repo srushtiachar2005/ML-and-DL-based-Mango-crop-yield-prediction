@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 import pandas as pd
+from weather_fetch import get_current_weather, get_seasonal_weather
 
 app = Flask(__name__)
 CORS(app)

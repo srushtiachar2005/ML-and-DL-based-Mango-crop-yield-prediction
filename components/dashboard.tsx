@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import YieldPrediction from "@/components/yield-prediction"
 import WasteRecommendation from "@/components/waste-recommendation"
-import SeasonalWeather from "@/components/seasonal-weather"
+import ImageYieldPrediction from "@/components/image-yield-prediction"
+
 
 interface DashboardProps {
   user: { name: string; email: string }
@@ -13,7 +14,7 @@ interface DashboardProps {
 }
 
 export default function Dashboard({ user, onLogout }: DashboardProps) {
-  const [currentPage, setCurrentPage] = useState<"home" | "yield" | "waste">("home")
+  const [currentPage, setCurrentPage] = useState<"home" | "yield" | "waste" | "image-yield">("home")
 
   return (
     <div className="min-h-screen bg-background">
@@ -50,10 +51,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
               </p>
             </div>
 
-            {/* Weather Widget */}
-            <div className="mb-8">
-              <SeasonalWeather />
-            </div>
+
 
             {/* Feature Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -73,6 +71,25 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
                   </p>
                   <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground">
                     Predict Yield
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Image Based Yield Prediction Card */}
+              <Card
+                className="border-2 border-border hover:border-accent/50 transition-all cursor-pointer overflow-hidden"
+                onClick={() => setCurrentPage("image-yield")}
+              >
+                <div className="p-8">
+                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center mb-4">
+                    <span className="text-3xl">📷</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-2">Image Based Yield Prediction</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Upload mango images for AI-powered yield prediction using computer vision and deep learning models.
+                  </p>
+                  <Button className="bg-gradient-to-r from-accent to-primary hover:opacity-90 text-accent-foreground">
+                    Predict from Image
                   </Button>
                 </div>
               </Card>
@@ -100,6 +117,8 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
         )}
 
         {currentPage === "yield" && <YieldPrediction onBack={() => setCurrentPage("home")} />}
+
+        {currentPage === "image-yield" && <ImageYieldPrediction onBack={() => setCurrentPage("home")} />}
 
         {currentPage === "waste" && <WasteRecommendation onBack={() => setCurrentPage("home")} />}
       </main>

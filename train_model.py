@@ -1,4 +1,4 @@
-# 🌾 Farm2Value - Improved Mango Yield Model (with tuning)
+# 🌾 Farm2Value - Improved Mango Yield Model (with Gradient Boosting)
 # -------------------------------------------------------
 import pandas as pd
 import numpy as np
@@ -26,6 +26,43 @@ for path in csv_candidates:
 
 if df is None:
     raise FileNotFoundError("No dataset found. Place farm2value_verified_mango_yield.csv or farm2.csv in project root.")
+
+# Integrate weather data
+from weather_fetch import get_seasonal_weather
+import time
+
+print("🌤️ Fetching seasonal weather data for training...")
+
+# Get unique district-season pairs
+unique_pairs = df[['district', 'season']].drop_duplicates()
+weather_data = {}
+
+for _, row in unique_pairs.iterrows():
+    district = row['district']
+    season = row['season']
+    try:
+        weather = get_seasonal_weather(district, season)
+        weather_data[(district, season)] = weather
+        print(f"✅ Fetched weather for {district} - {season}")
+        time.sleep(1)  # Rate limit
+    except Exception as e:
+        print(f"❌ Failed to fetch weather for {district} - {season}: {e}")
+        # Use existing data as fallback
+        weather_data[(district, season)] = {
+            'temperature_C': df[(df['district'] == district) & (df['season'] == season)]['temperature_C'].mean(),
+            'humidity_percent': df[(df['district'] == district) & (df['season'] == season)]['humidity_percent'].mean(),
+            'rainfall_mm': df[(df['district'] == district) & (df['season'] == season)]['rainfall_mm'].mean()
+        }
+
+# Update df with fetched weather
+for idx, row in df.iterrows():
+    key = (row['district'], row['season'])
+    if key in weather_data:
+        df.at[idx, 'temperature_C'] = weather_data[key]['temperature_C']
+        df.at[idx, 'humidity_percent'] = weather_data[key]['humidity_percent']
+        df.at[idx, 'rainfall_mm'] = weather_data[key]['rainfall_mm']
+
+print("✅ Dataset updated with weather data.")
 
 # Encode categorical features
 le_district = LabelEncoder()
@@ -99,16 +136,12 @@ plt.title("Actual vs Predicted Mango Yield (Improved Farm2Value Model)")
 plt.grid(True)
 plt.show()
 
-# Save improved model and objects (including standard names)
-joblib.dump(best_model, "farm2value_improved_model.pkl")
+# Save improved model and objects
+joblib.dump(best_model, "yield_prediction_model.joblib")
 joblib.dump(scaler, "scaler.pkl")
 joblib.dump(le_district, "district_encoder.pkl")
 joblib.dump(le_season, "season_encoder.pkl")
 joblib.dump(le_variety, "variety_encoder.pkl")
 joblib.dump(le_soil, "soil_encoder.pkl")
-
-# Standard filenames
-joblib.dump(best_model, "yield.joblib")
-joblib.dump(best_model, "yield_prediction_model.joblib")
 
 print("\n💾 Improved model and encoders saved successfully!")

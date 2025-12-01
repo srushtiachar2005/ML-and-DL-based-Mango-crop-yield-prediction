@@ -12,11 +12,11 @@ import { ArrowLeft, Loader2 } from "lucide-react"
 
 // Simple coordinates map (Karnataka examples)
 const DISTRICT_COORDS: Record<string, { lat: number; lon: number }> = {
-  Tumkur: { lat: 13.34, lon: 77.1 },
-  Kolar: { lat: 13.14, lon: 78.13 },
-  Mandya: { lat: 12.52, lon: 76.9 },
-  Hassan: { lat: 13.0, lon: 76.1 },
-  Chikkaballapur: { lat: 13.43, lon: 77.73 },
+  Tumkur: { lat: 13.34, lon: 77.10 },
+  Kolar: { lat: 13.13, lon: 78.23 },
+  Mandya: { lat: 12.52, lon: 76.89 },
+  Hassan: { lat: 13.01, lon: 76.10 },
+  Chikkaballapur: { lat: 13.43, lon: 77.72 },
   Ramanagara: { lat: 12.72, lon: 77.28 },
   // Non-dataset examples remain available
   Bangalore: { lat: 12.97, lon: 77.59 },

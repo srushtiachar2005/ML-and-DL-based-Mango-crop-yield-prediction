@@ -1,12 +1,9 @@
-# TODO: Integrate Weather API and Train Model
+# TODO: Fix Mango Detection and Yield Prediction
 
 ## Steps to Complete
 
-- [ ] Add 'requests' to requirements.txt
-- [ ] Create weather_fetch.py with functions for OpenWeatherMap (current weather) and Open-Meteo (historical/seasonal data)
-- [ ] Modify train_model.py to fetch average weather data for each district-season in farm2.csv, update dataset, and retrain model
-- [ ] Modify api.py to fetch current temperature and humidity from OpenWeatherMap for predictions, keep rainfall as input
-- [ ] Add new endpoint in api.py for seasonal weather reports using Open-Meteo
-- [ ] Install dependencies (pip install -r requirements.txt)
-- [ ] Run train_model.py to update and retrain the model
-- [ ] Test the APIs (predict endpoint and new seasonal endpoint)
+- [x] Modify image_segmentation.py to output a binary mask PNG instead of overlay image
+- [x] Update count_mangoes.py to process binary mask and accurately count mangoes using contour detection
+- [x] Add yield calculation logic in route.ts (assume average mango weight 0.5 kg, convert to tons)
+- [x] Update API response in route.ts to include calculated yield
+- [x] Update mango-image-analysis.tsx to display predicted yield in the results section
