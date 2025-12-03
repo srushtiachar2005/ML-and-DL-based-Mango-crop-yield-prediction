@@ -75,20 +75,27 @@ export default function MangoImageAnalysis({ onBack }: MangoImageAnalysisProps) 
       const formData = new FormData()
       formData.append('image', selectedFile)
 
-      const response = await fetch('/api/image-segmentation', {
+      const response = await fetch('http://localhost:4000/upload', {
         method: 'POST',
         body: formData,
       })
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'Segmentation failed')
+        const txt = await response.text()
+        throw new Error('Upload failed: ' + txt)
       }
 
-      const data = await response.json()
-      setResult(data)
+      const data = await response.text()
+      // For now, just show the save path as result
+      setResult({
+        segmentedImage: previewUrl || '',
+        analysis: `Image uploaded successfully: ${data}`,
+        confidence: 100,
+        yield: '0.000',
+        mangoCount: 0
+      })
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to analyze image')
+      setError(err instanceof Error ? err.message : 'Failed to upload image')
       console.error(err)
     } finally {
       setLoading(false)
@@ -134,6 +141,7 @@ export default function MangoImageAnalysis({ onBack }: MangoImageAnalysisProps) 
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
+                onClick={handleClick}
               >
                 <input
                   type="file"
@@ -142,8 +150,7 @@ export default function MangoImageAnalysis({ onBack }: MangoImageAnalysisProps) 
                     const file = e.target.files?.[0]
                     if (file) handleFileSelect(file)
                   }}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  style={{ zIndex: 20, pointerEvents: previewUrl ? 'none' : 'auto' }}
+                  className="hidden"
                   ref={fileInputRef}
                 />
                 {previewUrl ? (
@@ -159,7 +166,11 @@ export default function MangoImageAnalysis({ onBack }: MangoImageAnalysisProps) 
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={resetAnalysis}
+                      onClick={() => {
+                        if (fileInputRef.current) {
+                          fileInputRef.current.click()
+                        }
+                      }}
                       className="mt-4 relative z-10"
                     >
                       Choose Different Image
@@ -177,12 +188,9 @@ export default function MangoImageAnalysis({ onBack }: MangoImageAnalysisProps) 
                       <p className="text-sm text-muted-foreground mb-4">
                         Drag and drop an image here, or click to browse
                       </p>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="cursor-pointer relative z-30"
-                        onClick={(e) => {
-                          e.stopPropagation()
+                      <div
+                        className="cursor-pointer relative z-30 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+                        onClick={() => {
                           if (fileInputRef.current) {
                             fileInputRef.current.click()
                           }
@@ -190,7 +198,7 @@ export default function MangoImageAnalysis({ onBack }: MangoImageAnalysisProps) 
                       >
                         <Upload size={16} className="mr-2" />
                         Choose Image
-                      </Button>
+                      </div>
                     </div>
                   </div>
                 )}

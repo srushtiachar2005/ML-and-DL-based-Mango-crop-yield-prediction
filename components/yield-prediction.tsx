@@ -380,7 +380,7 @@ export default function YieldPrediction({ onBack }: YieldPredictionProps) {
                 <div className="bg-background rounded-lg p-4 border border-border">
                   <p className="text-sm text-muted-foreground mb-1">Estimated Yield</p>
                   <p className="text-3xl font-bold text-primary">
-                    {result.yield.toFixed(1)} <span className="text-lg text-muted-foreground">units</span>
+                    {result.yield.toFixed(1)} <span className="text-lg text-muted-foreground">quintal per acre</span>
                   </p>
                 </div>
 
