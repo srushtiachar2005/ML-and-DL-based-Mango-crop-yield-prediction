@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ArrowLeft, Upload, Loader2, Image as ImageIcon } from "lucide-react"
@@ -25,6 +25,7 @@ export default function ImageYieldPrediction({ onBack }: ImageYieldPredictionPro
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [dragActive, setDragActive] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileSelect = (file: File) => {
     if (file && file.type.startsWith('image/')) {
@@ -75,21 +76,34 @@ export default function ImageYieldPrediction({ onBack }: ImageYieldPredictionPro
       })
 
       if (!response.ok) {
+        let errorMessage = `Server error (${response.status})`
         try {
-          const errorData = await response.json()
-          console.error('API ERROR:', errorData)
-          throw new Error(errorData.error || 'Prediction failed')
+          const text = await response.text()
+          try {
+            const errorData = JSON.parse(text)
+            if (errorData && typeof errorData === 'object' && Object.keys(errorData).length > 0) {
+              errorMessage = errorData?.error || errorData?.message || JSON.stringify(errorData)
+            } else {
+              console.error('API ERROR: Empty or invalid JSON response')
+              errorMessage = `Server returned an error (${response.status})`
+            }
+          } catch {
+            console.error('API ERROR (text):', text)
+            errorMessage = text || errorMessage
+          }
         } catch (e) {
-          console.error('JSON parse error:', e)
-          throw new Error('Server returned non-JSON error')
+          console.error('Error reading response:', e)
+          errorMessage = `Failed to read server response (${response.status})`
         }
+        setError(errorMessage)
+        setLoading(false)
+        return
       }
 
       const data = await response.json()
       setResult(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to predict yield')
-      console.error(err)
     } finally {
       setLoading(false)
     }
@@ -166,22 +180,20 @@ export default function ImageYieldPrediction({ onBack }: ImageYieldPredictionPro
                       <p className="text-sm text-muted-foreground mb-4">
                         Drag and drop an image here, or click to browse
                       </p>
-                      <label htmlFor="image-upload">
-                        <Button type="button" variant="outline" className="cursor-pointer">
-                          <Upload size={16} className="mr-2" />
-                          Choose Image
-                        </Button>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => {
-                            const file = e.target.files?.[0]
-                            if (file) handleFileSelect(file)
-                          }}
-                          className="hidden"
-                          id="image-upload"
-                        />
-                      </label>
+                      <Button type="button" variant="outline" className="pointer-events-none">
+                        <Upload size={16} className="mr-2" />
+                        Choose Image
+                      </Button>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/jpeg, image/png"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0]
+                          if (file) handleFileSelect(file)
+                        }}
+                        className="hidden"
+                      />
                     </div>
                   </div>
                 )}
@@ -218,22 +230,6 @@ export default function ImageYieldPrediction({ onBack }: ImageYieldPredictionPro
               <h3 className="text-xl font-bold text-foreground mb-4">Yield Prediction Result</h3>
 
               <div className="space-y-4">
-                {/* Segmented Image */}
-                <div className="bg-background rounded-lg p-4 border border-border">
-                  <p className="text-sm text-muted-foreground mb-2">Segmented Image</p>
-                  <img
-                    src={result.segmentedImage}
-                    alt="Segmented mango"
-                    className="w-full rounded-lg"
-                  />
-                </div>
-
-                {/* Mango Count */}
-                <div className="bg-background rounded-lg p-4 border border-border">
-                  <p className="text-sm text-muted-foreground mb-1">Detected Mangoes</p>
-                  <p className="text-2xl font-bold text-accent">{result.mangoCount}</p>
-                </div>
-
                 {/* Predicted Yield */}
                 <div className="bg-background rounded-lg p-4 border border-border">
                   <p className="text-sm text-muted-foreground mb-1">Predicted Yield per Hectare</p>
